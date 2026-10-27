@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Цифровой помощник студента</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><span class="logo" aria-hidden="true">🎓</span><span>Цифровой помощник<br>студента</span></div>
+    <nav role="tablist" aria-label="Разделы" style="display:contents">
+      <button class="nav-btn" role="tab" aria-selected="true" data-view="home">🔔 Главная</button>
+      <button class="nav-btn" role="tab" aria-selected="false" data-view="schedule">📅 Расписание и афиша</button>
+      <button class="nav-btn" role="tab" aria-selected="false" data-view="nav">📍 Навигатор</button>
+      <button class="nav-btn" role="tab" aria-selected="false" data-view="privacy">🛡️ Приватность</button>
+    </nav>
+    <div class="demo">
+      <b>Режим демонстрации</b>
+      <label class="switch"><input type="checkbox" id="outage"> Имитировать сбой ЕЛК</label>
+    </div>
+  </aside>
+
+  <main class="main" id="root">
+    <div class="top">
+      <div>
+        <h1 id="title">Главная</h1>
+        <div class="sub">Тестовые обезличенные данные · 27.10.2026</div>
+      </div>
+      <div class="who"><i aria-hidden="true">А</i> Студент (тест) · 2 курс</div>
+    </div>
+
+    <div class="stale" id="stale" role="status">
+      <span aria-hidden="true">⚠️</span>
+      <span><strong>ЕЛК и Модеус сейчас недоступны.</strong> Показаны последние данные от 27.10, 08:12 — они могут быть неактуальны.</span>
+      <button id="retry">Повторить</button>
+    </div>
+
+    <!-- ГЛАВНАЯ -->
+    <section class="view active" id="home">
+      <div class="grid">
+        <div class="alert span2">
+          <div class="ic" aria-hidden="true">🔔</div>
+          <div>
+            <h3>Риск недобора: «Математический анализ» — 38 из 60</h3>
+            <p>До порога не хватает 22 баллов, до зачётной недели 14 дней. Ближайший шанс набрать баллы — контрольная 03.11.</p>
+            <button class="btn">Подробнее — план по дисциплине</button>
+            <button class="btn ghost">Отложить на день</button>
+          </div>
+        </div>
+
+        <div class="card" id="scoresCard">
+          <h2>Баллы по дисциплинам <span class="badge-stale">устарело</span></h2>
+          <table>
+            <thead><tr><th>Дисциплина</th><th>Баллы / порог</th><th></th><th>Статус</th></tr></thead>
+            <tbody>
+              <tr><td>Математический анализ</td><td>38 / 60</td><td><div class="bar low" aria-hidden="true"><span style="width:63%"></span></div></td><td><span class="pill bad">Недобор</span></td></tr>
+              <tr><td>Базы данных</td><td>72 / 60</td><td><div class="bar" aria-hidden="true"><span style="width:100%"></span></div></td><td><span class="pill ok">В норме</span></td></tr>
+              <tr><td>Веб-разработка</td><td>66 / 60</td><td><div class="bar" aria-hidden="true"><span style="width:100%"></span></div></td><td><span class="pill ok">В норме</span></td></tr>
+              <tr><td>История</td><td>57 / 60</td><td><div class="bar low" aria-hidden="true"><span style="width:95%"></span></div></td><td><span class="pill warn">Близко</span></td></tr>
+            </tbody>
+          </table>
+          <p class="note">Порог — 60 баллов. Уведомление приходит только при реальной смене статуса.</p>
+        </div>
+
+        <div class="card" id="todayCard">
+          <h2>Сегодня <span class="badge-stale">устарело</span></h2>
+          <div class="lesson"><time>09:00</time><div>Базы данных<small>ауд. 214 · корпус 1</small></div><span class="pill ok">по плану</span></div>
+          <div class="lesson"><time>10:45</time><div>Веб-разработка<small>ауд. 305 · корпус 1</small></div><span class="pill warn">замена ауд.</span></div>
+          <div class="event"><span aria-hidden="true">🎉</span><div><b>Афиша · 16:00</b><br>Встреча студенческого совета, актовый зал</div></div>
+          <p class="note"><a href="#" data-go="nav" style="color:var(--teal);font-weight:700">Как дойти до аудитории →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- РАСПИСАНИЕ -->
+    <section class="view" id="schedule">
+      <div class="card">
+        <h2>Занятия, замены и мероприятия <span class="badge-stale">устарело</span></h2>
+        <div class="lesson"><time>09:00</time><div>Базы данных (лекция)<small>ауд. 214 · корпус 1</small></div><span class="pill ok">по плану</span></div>
+        <div class="lesson"><time>10:45</time><div>Веб-разработка (практика)<small>ауд. 305 · корпус 1 · было 212</small></div><span class="pill warn">замена аудитории</span></div>
+        <div class="lesson"><time>13:00</time><div>Математический анализ<small>ауд. 118 · корпус 2</small></div><span class="pill ok">по плану</span></div>
+        <div class="event"><span aria-hidden="true">🎉</span><div><b>Афиша · 16:00</b><br>Встреча студенческого совета, актовый зал</div></div>
+        <div class="event"><span aria-hidden="true">📚</span><div><b>Афиша · завтра 18:00</b><br>Хакатон студенческих организаций</div></div>
+      </div>
+    </section>
+
+    <!-- НАВИГАТОР -->
+    <section class="view" id="nav">
+      <div class="grid">
+        <div class="card">
+          <h2>Маршрут «шаг за шагом»</h2>
+          <div class="sel">
+            <select aria-label="Корпус"><option>Корпус 1</option><option>Корпус 2</option></select>
+            <select aria-label="Аудитория"><option>Аудитория 305</option><option>Аудитория 214</option></select>
+          </div>
+          <ol class="route">
+            <li>Войдите через главный вход корпуса 1</li>
+            <li>Пройдите мимо гардероба, поверните налево</li>
+            <li>Поднимитесь по лестнице на 3 этаж</li>
+            <li>Аудитория 305 — третья дверь справа</li>
+          </ol>
+          <p class="note">Текстовая версия маршрута всегда рядом с картой.</p>
+        </div>
+        <div class="card"><h2>Схема этажа</h2><div class="map">Схема 3 этажа · корпус 1<br>(тестовая планировка)</div></div>
+      </div>
+    </section>
+
+    <!-- ПРИВАТНОСТЬ -->
+    <section class="view" id="privacy">
+      <div class="grid">
+        <div class="card">
+          <h2>Согласие на обработку данных</h2>
+          <label class="consent"><input type="checkbox"><span>Я согласен(на) на обработку ФИО, группы, баллов и расписания для отправки уведомлений. Согласие можно отозвать в любой момент.</span></label>
+          <ul class="list"><li>Данные хранятся на территории РФ</li><li>Реклама и передача данных третьим лицам исключены</li><li>Языковые модели и внешние ИИ-сервисы не используются</li></ul>
+        </div>
+        <div class="card">
+          <h2>Уведомления и данные</h2>
+          <div class="row"><span>Telegram</span><label class="switch" style="color:var(--navy)"><input type="checkbox" checked> включено</label></div>
+          <div class="row"><span>E-mail</span><label class="switch" style="color:var(--navy)"><input type="checkbox" checked> включено</label></div>
+          <div class="row"><span>Удалить аккаунт и все данные<br><small style="color:var(--gray)">Выполняется в течение 24 часов</small></span><button class="btn danger">Удалить</button></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>Прототип · веб-разработка, ТюмГУ · Варганов П., Ионин Ф., Голивец М., Дружина П.</footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  var titles={home:'Главная',schedule:'Расписание и афиша',nav:'Навигатор по корпусам',privacy:'Приватность'};
+  function show(id){
+    document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('active',v.id===id)});
+    document.querySelectorAll('.nav-btn').forEach(function(b){b.setAttribute('aria-selected',b.dataset.view===id)});
+    document.getElementById('title').textContent=titles[id];
+  }
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.view)})});
+  document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();show(a.dataset.go)})});
+  var out=document.getElementById('outage'),st=document.getElementById('stale'),root=document.getElementById('root');
+  function apply(){st.classList.toggle('on',out.checked);root.classList.toggle('is-stale',out.checked)}
+  out.addEventListener('change',apply);
+  document.getElementById('retry').addEventListener('click',function(){
+    var b=this;b.textContent=out.checked?'Всё ещё недоступно…':'Повторить';
+    setTimeout(function(){b.textContent='Повторить'},1800);
+  });
+  if(location.hash==='#stale'){out.checked=true;apply()}
+  var v=(location.hash||'').replace('#','');if(titles[v])show(v);
+})();
+</script>
+</body>
+</html>
